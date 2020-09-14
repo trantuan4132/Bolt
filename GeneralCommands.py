@@ -50,7 +50,11 @@ class GeneralCommands(commands.Cog, name = "General Commands"):
     @commands.command(name='trans', help = 'Translate anything inside quote \"\" into a chosen language')
     async def trans(self, ctx, sentence, dest='en', src='auto'):
         try:
-            await ctx.send(Translator().translate(sentence, dest=dest, src=src).text)
+            trans = Translator().translate(sentence, dest=dest, src=src)
+            if trans.pronunciation is None:
+                await ctx.send(trans.text)
+            else:
+                await ctx.send(f"{trans.text}   ({trans.pronunciation})")
         except:
             await ctx.send('Sorry, invalid input found!')
         return

@@ -27,14 +27,14 @@ async def on_message(message):
 
     if message.content.lower() == "good bot":
         await message.channel.send("Thank you.")
-
+"""
     trans = Translator().detect(message.content)
     if trans.lang in ['ja', 'ru'] and trans.confidence == 1.0:
         trans = Translator().translate(message.content)
         await message.channel.send(trans.text)
 
     await bot.process_commands(message)
-
+"""
 @bot.event
 async def on_member_join(member):
     await member.create_dm()
