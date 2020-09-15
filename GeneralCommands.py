@@ -51,7 +51,7 @@ class GeneralCommands(commands.Cog, name = "General Commands"):
     async def trans(self, ctx, sentence, dest='en', src='auto'):
         try:
             trans = Translator().translate(sentence, dest=dest, src=src)
-            if trans.pronunciation is None:
+            if trans.pronunciation in [None, trans.text]:
                 await ctx.send(trans.text)
             else:
                 await ctx.send(f"{trans.text}   ({trans.pronunciation})")
