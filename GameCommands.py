@@ -46,7 +46,7 @@ class GameCommands(commands.Cog, name='Game Commands'):
     def __init__(self, bot):
         self.bot = bot
 
-    async def matching_pronunciation(self, ctx, game, dictionary, example, guide=None):
+    async def matching_pronunciation(self, ctx, game, alias, dictionary, example, guide=None):
         if guide == '-guide' or guide == '-g':
             guide = f"""```prolog
             'WELCOME TO {game.upper()}'
@@ -59,7 +59,7 @@ Ex: {example}
 - The maximum time to answer will be reduced by 0.5 seconds for each {game} character.
 - This game will be over when an 'incorrect pronunciation' is typed or the time runs out, or there is 'no more questions left'.
 
-- Finally, type /{game} or /{game[:4]} to start the game```
+- Finally, type /{game} or /{alias} to start the game```
 """
             await ctx.send(guide)
         else:
@@ -89,8 +89,18 @@ Ex: {example}
 
     @commands.command(name='katakana', help="Type /katakana -g (or /kata -g) for more info", aliases=['kata'])
     async def katakana(self, ctx, guide=None):
-        await self.matching_pronunciation(ctx, 'katakana', self.Katakana, 'カ --> ka', guide)
+        await self.matching_pronunciation(ctx=ctx,
+                                          game='katakana',
+                                          alias='kata',
+                                          dictionary=self.Katakana,
+                                          example='カ --> ka',
+                                          guide=guide)
 
     @commands.command(name='hiragana', help="Type /hiragana -g (or /hira -g) for more info", aliases=['hira'])
     async def hiragana(self, ctx, guide=None):
-        await self.matching_pronunciation(ctx, 'hiragana', self.Hiragana, 'ひ --> hi', guide)
+        await self.matching_pronunciation(ctx=ctx,
+                                          game='hiragana',
+                                          alias='hira',
+                                          dictionary=self.Hiragana,
+                                          example='ひ --> hi',
+                                          guide=guide)
