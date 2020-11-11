@@ -23,16 +23,16 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     if message.author.bot: return
-    if message.content.startswith('/'): return
     if message.content.startswith(':') and message.content.endswith(':'): return
 
     if message.content.lower() == "good bot":
         await message.channel.send("Thank you.")
 
-    trans = Translator().detect(message.content)
-    if trans.lang in ['ja', 'ru', 'vi'] and trans.confidence == 1.0:
-        trans = Translator().translate(message.content)
-        await message.channel.send(trans.text)
+    if not message.content.startswith('/'):  
+        trans = Translator().detect(message.content)
+        if trans.lang in ['ja', 'ru', 'vi'] and trans.confidence == 1.0:
+            trans = Translator().translate(message.content)
+            await message.channel.send(trans.text)
 
     await bot.process_commands(message)
 
