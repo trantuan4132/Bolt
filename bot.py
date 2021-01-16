@@ -28,11 +28,11 @@ async def on_message(message):
     if message.content.lower() == "good bot":
         await message.channel.send("Thank you.")
 
-    if not message.content.startswith('/'):  
-        trans = Translator().detect(message.content)
-        if trans.lang in ['ja', 'ru', 'vi'] and trans.confidence == 1.0:
-            trans = Translator().translate(message.content)
-            await message.channel.send(trans.text)
+    # if not message.content.startswith('/'):
+    #     trans = Translator().detect(message.content)
+    #     if trans.lang in ['ja', 'ru', 'vi'] and trans.confidence == 1.0:
+    #         trans = Translator().translate(message.content)
+    #         await message.channel.send(trans.text)
 
     await bot.process_commands(message)
 
