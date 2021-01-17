@@ -6,6 +6,7 @@ from googletrans import Translator
 from GeneralCommands import *
 #from PythonCommands import *
 from GameCommands import *
+from KaggleCommands import *
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -17,6 +18,7 @@ async def on_ready():
     bot.add_cog(GeneralCommands(bot))
     #bot.add_cog(PythonCommands(bot))
     bot.add_cog(GameCommands(bot))
+    bot.add_cog(KaggleCommands(bot))
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="/help"))
     print(f'{bot.user.name} has connected to Discord!')
 
