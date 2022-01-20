@@ -148,5 +148,3 @@ cython_debug/
 *.pt
 data/
 .DS_Store
-
-.env
