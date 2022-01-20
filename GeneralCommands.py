@@ -41,7 +41,7 @@ class GeneralCommands(commands.Cog, name = "General Commands"):
             await ctx.send("Sorry, no connection found or some errors occurred.")
 
     @commands.command(name='langcode', help = 'Get language code from language name')
-    async def detect(self, ctx, language):
+    async def langcode(self, ctx, language):
         try:
             code = LANGCODES[language]
             await ctx.send(code)
