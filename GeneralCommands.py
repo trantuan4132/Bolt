@@ -69,9 +69,9 @@ class GeneralCommands(commands.Cog, name = "General Commands"):
                 dest = LANGCODES.get(dest, dest)
                 trans = translator.translate(sentence, dest=dest, src=src)
                 if trans.pronunciation in [None, trans.text]:
-                    response.append(f"{src} --> {dest}:   {trans.text}")
+                    response.append(f"{src} ⟶ {dest}:   {trans.text}")
                 else:
-                    response.append(f"{src} --> {dest}:   {trans.text}   ({trans.pronunciation})")
+                    response.append(f"{src} ⟶ {dest}:   {trans.text}   ({trans.pronunciation})")
             except:
                 response.append('Sorry, invalid input found!')
         await ctx.send('\n'.join(response))
