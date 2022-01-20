@@ -1,7 +1,9 @@
+from http.client import responses
+from urllib import response
 import discord
 from discord.ext import commands
 import random
-from googletrans import Translator, LANGUAGES
+from googletrans import Translator, LANGUAGES, LANGCODES
 
 class GeneralCommands(commands.Cog, name = "General Commands"):
 
@@ -38,23 +40,39 @@ class GeneralCommands(commands.Cog, name = "General Commands"):
         except:
             await ctx.send("Sorry, no connection found or some errors occurred.")
 
+    @commands.command(name='langcode', help = 'Get language code from language name')
+    async def detect(self, ctx, language):
+        try:
+            code = LANGCODES[language]
+            await ctx.send(code)
+        except:
+            await ctx.send('Sorry, invalid input found!')
+        return
+
     @commands.command(name='detect', help = 'Detect language inside quote \"\"')
     async def detect(self, ctx, sentence):
         try:
-            code = Translator().detect(sentence).lang
+            translator = Translator()
+            code = translator.detect(sentence).lang
             await ctx.send(LANGUAGES[code])
         except:
             await ctx.send('Sorry, invalid input found!')
         return
 
-    @commands.command(name='trans', help = 'Translate anything inside quote \"\" into a chosen language')
-    async def trans(self, ctx, sentence, dest='en', src='auto'):
-        try:
-            trans = Translator().translate(sentence, dest=dest, src=src)
-            if trans.pronunciation in [None, trans.text]:
-                await ctx.send(trans.text)
-            else:
-                await ctx.send(f"{trans.text}   ({trans.pronunciation})")
-        except:
-            await ctx.send('Sorry, invalid input found!')
+    @commands.command(name='trans', help = 'Translate anything inside quote \"\" into a chosen language \
+                                            (Allow translating into multiple languagues using \',\' as separator)')
+    async def trans(self, ctx, sentence, dests='en', src='auto'):
+        response = []
+        translator = Translator()
+        for dest in dests.split(','):
+            try:
+                dest = LANGCODES.get(dest, dest)
+                trans = translator.translate(sentence, dest=dest, src=src)
+                if trans.pronunciation in [None, trans.text]:
+                    response.append(f"{src} --> {dest}:   {trans.text}")
+                else:
+                    response.append(f"{src} --> {dest}:   {trans.text}   ({trans.pronunciation})")
+            except:
+                response.append('Sorry, invalid input found!')
+        await ctx.send('\n'.join(response))
         return
