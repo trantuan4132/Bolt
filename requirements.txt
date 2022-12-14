@@ -3,7 +3,7 @@ async-timeout==3.0.1
 attrs==20.2.0
 beautifulsoup4==4.9.3
 bs4==0.0.1
-certifi==2020.6.20
+certifi==2022.12.07
 chardet==3.0.4
 cycler==0.10.0
 discord.py==1.4.1
@@ -20,7 +20,7 @@ kiwisolver==1.2.0
 matplotlib==3.3.1
 multidict==4.7.6
 numpy==1.19.1
-Pillow==7.2.0
+Pillow==9.2.0
 pyparsing==2.4.7
 python-dateutil==2.8.1
 python-dotenv==0.14.0
